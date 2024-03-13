@@ -36,25 +36,11 @@ const IndexPage: NextPageWithLayout = () => {
   return (
     <div className="flex flex-col bg-gray-800 py-8">
       <h1 className="text-4xl font-bold">
-        Welcome to your tRPC with Prisma starter!
+        Welcome to Our Blog!
       </h1>
       <p className="text-gray-400">
-        If you get stuck, check{' '}
-        <Link className="underline" href="https://trpc.io">
-          the docs
-        </Link>
-        , write a message in our{' '}
-        <Link className="underline" href="https://trpc.io/discord">
-          Discord-channel
-        </Link>
-        , or write a message in{' '}
-        <Link
-          className="underline"
-          href="https://github.com/trpc/trpc/discussions"
-        >
-          GitHub Discussions
-        </Link>
-        .
+        Here we can use trpc with next.js and prisma all togther.
+        Let's build a great blog with trpc and next.js!
       </p>
 
       <div className="flex flex-col py-8 items-start gap-y-2">

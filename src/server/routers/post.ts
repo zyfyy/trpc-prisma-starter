@@ -46,8 +46,8 @@ export const postRouter = router({
         where: {},
         cursor: cursor
           ? {
-              id: cursor,
-            }
+            id: cursor,
+          }
           : undefined,
         orderBy: {
           createdAt: 'desc',
@@ -101,5 +101,33 @@ export const postRouter = router({
         select: defaultPostSelect,
       });
       return post;
+    }),
+  update: publicProcedure
+    .input(
+      z.object({
+        id: z.string().uuid(), // 确保id是UUID格式
+        title: z.string().min(1).max(32).optional(), // 可选字段
+        text: z.string().min(1).optional(), // 可选字段
+        // 可以根据需要添加更多可选字段
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { id, ...updateData } = input; // 解构id和其他更新数据
+
+      // 尝试查找并更新记录
+      const updatedPost = await prisma.post.update({
+        where: { id },
+        data: updateData,
+        select: defaultPostSelect, // 选择要返回的字段
+      });
+
+      if (!updatedPost) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: `No post with id '${id}' to update`,
+        });
+      }
+
+      return updatedPost; // 返回更新后的记录
     }),
 });
